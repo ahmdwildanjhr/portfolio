@@ -15,7 +15,7 @@ app.post('/send-email', (req, res) => {
 
     const msg = {
         to: 'awildanjauhari@gmail.com', // Ganti dengan email penerima
-        from: 'awildanjauhari@gmail.com',  // Ganti dengan email pengirim yang terverifikasi
+        from: email, //'awildanjauhari@gmail.com',  // Ganti dengan email pengirim yang terverifikasi
         subject: subject,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
