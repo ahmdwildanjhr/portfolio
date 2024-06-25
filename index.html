@@ -793,7 +793,7 @@
 							<span class="icon-globe"></span>
 						</div>
 						<h3 class="mb-4">Website</h3>
-						<p><a href="https://ahmdwildanjhr.github.io/portfolio/">ahmdwildanjhr.github.io/portfolio</a>
+						<p><a href="https://ahmdwildanjhr.github.io/portfolio/">This is my site</a>
 						</p>
 					</div>
 				</div>
@@ -801,27 +801,51 @@
 
 			<div class="row no-gutters block-9">
 				<div class="col-md-6 order-md-last d-flex">
-					<form action="#" class="bg-light p-4 p-md-5 contact-form">
+					<form id="contact-form" class="bg-light p-4 p-md-5 contact-form">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Your Name">
+							<input type="text" id="name" class="form-control" placeholder="Your Name">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Your Email">
+							<input type="text" id="email" class="form-control" placeholder="Your Email">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Subject">
+							<input type="text" id="subject" class="form-control" placeholder="Subject">
 						</div>
 						<div class="form-group">
-							<textarea name="" id="" cols="30" rows="7" class="form-control"
+							<textarea id="message" cols="30" rows="7" class="form-control"
 								placeholder="Message"></textarea>
 						</div>
 						<div class="form-group">
 							<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
 						</div>
 					</form>
-
 				</div>
+				<script>
+					document.getElementById('contact-form').addEventListener('submit', function (event) {
+						event.preventDefault();
 
+						const name = document.getElementById('name').value;
+						const email = document.getElementById('email').value;
+						const subject = document.getElementById('subject').value;
+						const message = document.getElementById('message').value;
+
+						fetch('/send-email', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ name, email, subject, message })
+						})
+							.then(response => response.text())
+							.then(data => {
+								alert(data);
+							})
+							.catch(error => {
+								console.error('Error:', error);
+								alert('Error sending email');
+							});
+					});
+				</script>
 				<div class="col-md-6 d-flex">
 					<div class="img" style="background-image: url(images/about.jpg);"></div>
 				</div>
@@ -918,7 +942,7 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/lightbox.js"></script>
-
+	<script src="js/app.js"></script>
 	<script src="js/main.js"></script>
 
 </body>
