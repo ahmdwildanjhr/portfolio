@@ -726,22 +726,34 @@
 				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
 					<div class="block-18">
 						<div class="text">
-							<strong id="visitor-count">0</strong>
+							<strong class="number" id="visitor-count">0</strong>
 							<span>Visitors</span>
 						</div>
 					</div>
 				</div>
 				<script>
 					function updateVisitorCount() {
-						fetch('update_visitors.php')
-							.then(response => response.text())
-							.then(data => {
-								document.getElementById('visitor-count').innerText = data;
-							})
-							.catch(error => console.error('Error:', error));
+						// Ambil jumlah kunjungan dari localStorage
+						let count = localStorage.getItem('visitorCount');
+
+						// Jika belum ada, inisialisasi dengan 0
+						if (!count) {
+							count = 0;
+						} else {
+							count = parseInt(count);
+						}
+
+						// Tambah jumlah kunjungan
+						count += 1;
+
+						// Simpan kembali ke localStorage
+						localStorage.setItem('visitorCount', count);
+
+						// Tampilkan jumlah kunjungan
+						document.getElementById('visitor-count').innerText = count;
 					}
 
-					// Update count on page load
+					// Update count saat halaman dimuat
 					window.onload = updateVisitorCount;
 				</script>
 			</div>
